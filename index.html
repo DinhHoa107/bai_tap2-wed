@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Tìm kiếm sinh viên</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #eef3ff;
+        padding: 40px;
+    }
+    .container {
+        width: 400px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #999;
+    }
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+    label {
+        font-weight: bold;
+    }
+    input {
+        width: 100%;
+        padding: 8px;
+        margin: 8px 0;
+        border-radius: 5px;
+        border: 1px solid #888;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #007bff;
+        color: #fff;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #0056b3;
+    }
+    #result {
+        margin-top: 20px;
+        padding: 10px;
+        background: #d9ffd9;
+        border-radius: 5px;
+        display: none;
+    }
+    #backBtn {
+        background: #f44336;
+        margin-top: 10px;
+        display: none;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Tìm kiếm sinh viên</h2>
+
+    <div id="searchForm">
+        <label>Mã SV:</label>
+        <input type="text" id="masv" placeholder="Nhập mã sinh viên...">
+
+        <button onclick="searchStudent()">Tìm kiếm</button>
+    </div>
+
+    <div id="result"></div>
+    <button id="backBtn" onclick="goBack()">Quay lại</button>
+</div>
+
+<script>
+    // Danh sách 10 sinh viên mẫu
+    const students = [
+        { masv: "SV001", hoten: "Nguyễn Văn A", lop: "CNTT1", diem: 8.5 },
+        { masv: "SV002", hoten: "Trần Thị B", lop: "CNTT1", diem: 7.8 },
+        { masv: "SV003", hoten: "Phạm Văn C", lop: "CNTT2", diem: 9.0 },
+        { masv: "SV004", hoten: "Đỗ Thị D", lop: "CNTT3", diem: 6.5 },
+        { masv: "SV005", hoten: "Hoàng Văn E", lop: "CNTT2", diem: 8.0 },
+        { masv: "SV006", hoten: "Vũ Thị F", lop: "CNTT1", diem: 7.0 },
+        { masv: "SV007", hoten: "Lê Văn G", lop: "CNTT3", diem: 5.9 },
+        { masv: "SV008", hoten: "Bùi Thị H", lop: "CNTT4", diem: 9.2 },
+        { masv: "SV009", hoten: "Ngô Văn I", lop: "CNTT4", diem: 6.9 },
+        { masv: "SV010", hoten: "Mai Thị K", lop: "CNTT1", diem: 8.8 }
+    ];
+
+    function searchStudent() {
+        const masv = document.getElementById("masv").value.trim().toUpperCase();
+        const resultDiv = document.getElementById("result");
+
+        const student = students.find(s => s.masv.toUpperCase() === masv);
+
+        if (student) {
+            resultDiv.innerHTML = `
+                <strong>Kết quả:</strong><br>
+                Mã SV: ${student.masv}<br>
+                Họ tên: ${student.hoten}<br>
+                Lớp: ${student.lop}<br>
+                Điểm: ${student.diem}
+            `;
+        } else {
+            resultDiv.innerHTML = `<span style="color: red;">Không tìm thấy sinh viên!</span>`;
+        }
+
+        document.getElementById("searchForm").style.display = "none";
+        resultDiv.style.display = "block";
+        document.getElementById("backBtn").style.display = "block";
+    }
+
+    function goBack() {
+        document.getElementById("searchForm").style.display = "block";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("backBtn").style.display = "none";
+        document.getElementById("masv").value = "";
+    }
+</script>
+
+</body>
+</html>
